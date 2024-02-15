@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>アクションリスト記録アプリ</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body> <!-- 表示される部分 -->
+        <h1>アクションリスト</h1>
+        <!-- <p>新しい画面です</p> -->
+        <form method="post" action="{{ url_for('register') }}">
+            <table border="1">
+                <tr>
+                    <th>日付</th>
+                    <th>行動</th>
+                    <th>場所</th>
+                </tr>
+                
+                <tr>
+                    <td><input type="text" name="date"></td>
+                    <td><input type="text" name="action"></td>
+                    <td><input type="text" name="place"></td>
+                </tr>
+            </table>
+            <br>
+            <input type="submit" value="登録">
+        </form>
+    </body>
+</html>

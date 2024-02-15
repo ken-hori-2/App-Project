@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>アクションリスト記録アプリ</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body> <!-- 表示される部分 -->
+        <h1>アクションリスト</h1>
+        <h2>今日の行動一覧</h2>
+            {% if info == [] %}
+                <p>今日の行動はまだありません</p>
+            {% else %}
+                <table border="1">
+                    <tr>
+                        <th>日付</th>
+                        <th>行動</th>
+                        <th>場所</th>
+                    </tr>
+                    {% for data in info %}
+                    <tr>
+                        <td>{{ data.date }}</td>
+                        <td>{{ data.action }}</td>
+                        <td>{{ data.place }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <!-- {% for data in info %}
+                <p>行動: {{ data.action }}</p>
+                <p>場所: {{ data.place }}</p>
+                <p>日付: {{ data.date }}</p>
+                {% endfor %} -->
+            {% endif %}
+        <a href="{{ url_for('form') }}">編集</a>
+        <!-- <p class="msr_btn15">
+            <a href="{{ url_for('form') }}">Edit</a>
+        </p> -->
+    </body>
+
+</html>

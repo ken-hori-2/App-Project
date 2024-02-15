@@ -1,0 +1,92 @@
+h1 {
+    position: relative;
+    background: #dfefff;
+    box-shadow: 0px 0px 0px 5px #deffff;
+    border: dashed 2px white;
+    padding:  0.2em 0.5em;
+    color:  #454545;
+}
+
+h1:after {
+    position: absolute;
+    content:  '';
+    left:  -7px;
+    top: -7px;
+    border-width: 0 0 15px 15px;
+    border-style: solid;
+    border-color: #fff #fff #a8d4ff;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.msr_btn15 a{
+    width: 230px;
+    padding:15px;
+    color:#ffffff;
+    font-size: 15px;
+    line-height: 120%;
+    text-align: center;
+    text-decoration: none;
+    -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    border-radius:8px;
+    background: #FF9C15;
+    display: block;
+    position:relative;
+    -webkit-transition: 0.3s ease-out;
+    -moz-transition: 0.3s ease-out;
+    -o-transition: 0.3s ease-out;
+    transition: 0.3s ease-out;
+  }
+  .msr_btn15 a::before{
+    content: '';
+    width: 16px;
+    height: 16px;
+    margin:-8px 0 0 0;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;
+    background: #fff;
+    position:relative;
+    position:absolute;
+    top:50%;
+    left:20px;
+    display:block;
+  }
+  .msr_btn15 a::after{
+    content: '';
+    width: 4px;
+    height: 4px;
+    border: 0px;
+    margin:-3px 0 0 0;
+    border-top: solid 2px #FF9C15;
+    border-right: solid 2px #FF9C15;
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position:absolute;
+    top:50%;
+    left:24px;
+    display:block;
+    -webkit-transition: 0.3s ease-out;
+    -moz-transition: 0.3s ease-out;
+    -o-transition: 0.3s ease-out;
+    transition: 0.3s ease-out;
+  }
+  .msr_btn15 a:hover{
+    background: #FFAF42;
+  }
+  .msr_btn15 a:hover::after{
+    border-top: solid 2px #FFAF42;
+    border-right: solid 2px #FFAF42;
+  }
+
+
+  table {
+    border-collapse: collapse;
+    border-bottom: 5px solid #000000;
+    border-right: 5px solid #000000;
+    border-left: 5px solid #000000;
+    line-height: 1.5;
+    text-align: left;
+    width: 100%;
+  }
