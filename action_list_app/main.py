@@ -5,7 +5,8 @@ import csv
 DATABASE = 'database.db'
 
 # add
-with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv', 'w') as f: # input/date_action.csv', 'w') as f:
+dir_path = '/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv'
+with open(dir_path, 'w') as f: # input/date_action.csv', 'w') as f:
     writer = csv.writer(f)
     # writer.writerows([info["date"], info["action"], info["place"]])
     writer.writerow(['date', 'action', 'place'])
@@ -35,12 +36,12 @@ def index():
         info.append({'action': row[0], 'place': row[1], 'date': row[2]})
 
     # # add
-    # with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv', 'w') as f: # input/date_action.csv', 'w') as f:
+    # with open(dir_path, 'w') as f: # input/date_action.csv', 'w') as f:
     #     writer = csv.writer(f)
     #     # writer.writerows([info["date"], info["action"], info["place"]])
     #     writer.writerow(['date', 'action', 'place'])
 
-    # with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv') as f: # data/temp/sample_writer_row.csv') as f:
+    # with open(dir_path) as f: # data/temp/sample_writer_row.csv') as f:
     #     print("**********")
     #     print(f.read())
     #     print("**********")
@@ -77,12 +78,12 @@ def register():
     con.close()
 
     # add
-    with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv', 'a') as f: # input/date_action.csv', 'w') as f:
+    with open(dir_path, 'a') as f: # input/date_action.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerows([[date, action, place]])
         # writer.writerow(['a', 'b', 'c'])
 
-    with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv') as f: # data/temp/sample_writer_row.csv') as f:
+    with open(dir_path) as f: # data/temp/sample_writer_row.csv') as f:
         print("**********")
         print(f.read())
         print("**********")
