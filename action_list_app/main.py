@@ -7,6 +7,7 @@ import datetime
 DATABASE = 'database.db'
 
 # add
+<<<<<<< HEAD
 # with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv', 'w') as f: # input/date_action.csv', 'w') as f:
 # with open('/home/ubuntu/App-Project/action_list_app/input/date_action.csv', 'w') as f:
 # dt_now = datetime.datetime.now()
@@ -15,6 +16,10 @@ print(dt_now_jst)
 date = dt_now_jst.strftime('%Y%m%d%H%M')
 filename = '/home/ubuntu/App-Project/action_list_app/input/date_action_' + date + '.csv'
 with open(filename, 'w') as f:
+=======
+dir_path = '/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv'
+with open(dir_path, 'w') as f: # input/date_action.csv', 'w') as f:
+>>>>>>> d8568c89f80f41e658668e14da90a9f53ed65aa9
     writer = csv.writer(f)
     # writer.writerows([info["date"], info["action"], info["place"]])
     writer.writerow(['date', 'action', 'place'])
@@ -44,12 +49,12 @@ def index():
         info.append({'action': row[0], 'place': row[1], 'date': row[2]})
 
     # # add
-    # with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv', 'w') as f: # input/date_action.csv', 'w') as f:
+    # with open(dir_path, 'w') as f: # input/date_action.csv', 'w') as f:
     #     writer = csv.writer(f)
     #     # writer.writerows([info["date"], info["action"], info["place"]])
     #     writer.writerow(['date', 'action', 'place'])
 
-    # with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv') as f: # data/temp/sample_writer_row.csv') as f:
+    # with open(dir_path) as f: # data/temp/sample_writer_row.csv') as f:
     #     print("**********")
     #     print(f.read())
     #     print("**********")
@@ -93,6 +98,7 @@ def register():
     con.close()
 
     # add
+<<<<<<< HEAD
     ########## 2024/02/27 ##########
     # dt_now = datetime.datetime.now()
     # print(dt_now)
@@ -160,12 +166,19 @@ def register():
 
     # with open('/home/ubuntu/App-Project/action_list_app/input/date_action.csv', 'a') as f: # input/date_action.csv', 'w') as f:
     with open(filename, 'a') as f: # input/date_action.csv', 'w') as f:
+=======
+    with open(dir_path, 'a') as f: # input/date_action.csv', 'w') as f:
+>>>>>>> d8568c89f80f41e658668e14da90a9f53ed65aa9
         writer = csv.writer(f)
         writer.writerows([[date, action, place]])
         # writer.writerow(['a', 'b', 'c'])
 
+<<<<<<< HEAD
     # with open('/home/ubuntu/App-Project/action_list_app/input/date_action.csv') as f: # data/temp/sample_writer_row.csv') as f:
     with open(filename) as f: # input/date_action.csv', 'w') as f:
+=======
+    with open(dir_path) as f: # data/temp/sample_writer_row.csv') as f:
+>>>>>>> d8568c89f80f41e658668e14da90a9f53ed65aa9
         print("**********")
         print(f.read())
         print("**********")
