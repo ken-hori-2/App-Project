@@ -39,7 +39,7 @@ from torch.nn import TransformerEncoder, TransformerDecoder, TransformerEncoderL
 # obj3 = "banana"
 # obj4 = "pine"
 
-# UPLOAD_FOLDER = "./static/images/"
+UPLOAD_FOLDER = "./static/images/"
 # ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 
 # labels = ["りんご", "みかん", "バナナ", "パイナップル"]
@@ -47,6 +47,8 @@ from torch.nn import TransformerEncoder, TransformerDecoder, TransformerEncoderL
 # img_size = 64 # 32
 # n_result = 3  # 上位3つの結果を表示
 # if __name__ == "__main__":
+
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     
 # パラメータなどの定義
 d_input = 1
@@ -130,7 +132,7 @@ else:
 
 # app = Flask(__name__)
 app = Flask(__name__, static_folder='upload_data', template_folder='./my_templates') # ../my_templates') # デフォルトはstatic
-# app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 # def allowed_file(filename):
 #     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS # 許容する拡張子内に含まれているならTrueを返す
@@ -225,7 +227,7 @@ def result():
     # torch.manual_seed(fix_seed)
 
     #デバイスの設定
-    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    # device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 
 
@@ -344,8 +346,39 @@ def result():
                 best_model = model
 
         # テスト用データにおける予測
-        r = evaluate(flag='test', model=best_model, data_provider=data_provider('test', src_len, tgt_len, batch_size), criterion=criterion)
+        r, date, next_action_list, next_action = evaluate(flag='test', model=best_model, data_provider=data_provider('test', src_len, tgt_len, batch_size), criterion=criterion)
         print(r)
+    
+    result = ""
+    # # 今回は結果を3つ表示
+    # # for i in range(3): # n_result):
+    # #     # idx = sorted_idx[i].item() # 大きい順にソートしているので、最も大きい値が入る
+    # #     # ratio = pred[idx].item()
+    # #     # label = labels[idx]
+    # #     # result += "<p>" + str(round(ratio*100, 1)) + \
+    # #     #     "%の確率で" + label + "です。</p>"
+    # #     result += "<p>" + str(round(ratio*100, 1)) + \
+    # #         "%の確率で" + label + "です。</p>"
+    print("***** 予測結果 *****")
+    print(f"{date[0]} t=1, action:{next_action_list[round(next_action[0][0][0])]}")
+    print(f"{date[1]} t=2, action:{next_action_list[round(next_action[0][1][0])]}")
+    print(f"{date[2]} t=3, action:{next_action_list[round(next_action[0][2][0])]}")
+    # result = f"[Next Action is ...]{date[0]} t=1, action:{next_action_list[round(next_action[0][0][0])]}"
+    result += "<p>" + f"[Next Action is ...] (t+1)'s action:{next_action_list[round(next_action[0][0][0])]}</p>"
+
+    result += "<p>" + f"[Next Action is ...] (t+2)'s action:{next_action_list[round(next_action[0][1][0])]}</p>"
+    result += "<p>" + f"[Next Action is ...] (t+3)'s action:{next_action_list[round(next_action[0][2][0])]}</p>"
+
+
+    # if not os.path.exists(UPLOAD_FOLDER):
+    #     # os.mkdir(UPLOAD_FOLDER)
+    #     os.makedirs(UPLOAD_FOLDER)
+    filename = 'actions_by_load_model.png' # secure_filename(file.filename)  # ファイル名を安全なものに
+    filepath = os.path.join(UPLOAD_FOLDER, filename) # '/home/ubuntu/App-Project/action_list_app/actions_by_load_model.png' # 
+    file = request.files["file"]
+    file.save(filepath)
+    
+    return render_template("result.html", result=Markup(result), filepath=filepath) # result.htmlにこの結果を表示
 
 
 # データのロードと実験用の整形
@@ -853,12 +886,24 @@ def evaluate(flag, model, data_provider, criterion):
         # print("(t+3)next action is ... ", next_action_list[round(next_action[0][2][0])])
 
         # plt.savefig('actions.png')
-        plt.savefig('actions_by_load_model.png')
+        plt.savefig('./upload_data/images/actions_by_load_model.png')
         # plt.savefig('pred.pdf')
-    
+        
+        # if not os.path.exists(UPLOAD_FOLDER):
+        #     # os.mkdir(UPLOAD_FOLDER)
+        #     os.makedirs(UPLOAD_FOLDER)
+        # file = request.files["file"]
+        # filename = 'actions_by_load_model.png' # secure_filename(file.filename)  # ファイル名を安全なものに
+        # filepath = os.path.join(UPLOAD_FOLDER, filename)
+        
+        # # file.save(filepath)
+        
+        # return render_template("result.html", result=Markup(result), filepath=filepath) # result.htmlにこの結果を表示
+        return np.average(total_loss), date, next_action_list, next_action
+
     # print("test : {}".format(seq_len_src))
         
-    return np.average(total_loss)
+    return np.average(total_loss) # , next_action_list, next_action
 
 
 

@@ -14,9 +14,9 @@ from torch.nn import LayerNorm
 from torch.utils.data import Dataset, DataLoader
 from torch.nn import TransformerEncoder, TransformerDecoder, TransformerEncoderLayer, TransformerDecoderLayer
 
-import torchvision
+# import torchvision
 print(torch.__version__)
-print(torchvision.__version__)
+# print(torchvision.__version__)
 
 #ランダムシードの設定
 # fix_seed = 2023
@@ -238,7 +238,7 @@ class Transformer(nn.Module):
                                                 nhead=nhead, 
                                                 dim_feedforward=dim_feedforward,
                                                 dropout=dropout,
-                                                # batch_first=True, 1.8.1くらいの場合は引数を取らない
+                                                batch_first=True, # 1.8.1くらいの場合は引数を取らない
                                                 activation='gelu'
                                                )
         encoder_norm = LayerNorm(d_model)
@@ -252,7 +252,7 @@ class Transformer(nn.Module):
                                                 nhead=nhead, 
                                                 dim_feedforward=dim_feedforward,
                                                 dropout=dropout,
-                                                # batch_first=True, 1.8.1くらいの場合は引数を取らない
+                                                batch_first=True, # 1.8.1くらいの場合は引数を取らない
                                                 activation='gelu'
                                                )
         decoder_norm = LayerNorm(d_model)
