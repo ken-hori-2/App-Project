@@ -2,10 +2,19 @@ from action_list_app import app
 from flask import render_template, request, redirect, url_for
 import sqlite3
 import csv
+import datetime
+
 DATABASE = 'database.db'
 
 # add
-with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv', 'w') as f: # input/date_action.csv', 'w') as f:
+# with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv', 'w') as f: # input/date_action.csv', 'w') as f:
+# with open('/home/ubuntu/App-Project/action_list_app/input/date_action.csv', 'w') as f:
+# dt_now = datetime.datetime.now()
+dt_now_jst = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
+print(dt_now_jst)
+date = dt_now_jst.strftime('%Y%m%d%H%M')
+filename = '/home/ubuntu/App-Project/action_list_app/input/date_action_' + date + '.csv'
+with open(filename, 'w') as f:
     writer = csv.writer(f)
     # writer.writerows([info["date"], info["action"], info["place"]])
     writer.writerow(['date', 'action', 'place'])
@@ -45,6 +54,13 @@ def index():
     #     print(f.read())
     #     print("**********")
 
+    # ########## 2024/02/27 ##########
+    # filename = '/home/ubuntu/App-Project/action_list_app/input/date_action_' + date + '.csv'
+    # with open(filename, 'a') as f:
+    #     writer = csv.writer(f)
+    #     writer.writerows([['date', 'action', 'place']])
+    # ########## 2024/02/27 ##########
+
 
 
 
@@ -77,12 +93,79 @@ def register():
     con.close()
 
     # add
-    with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv', 'a') as f: # input/date_action.csv', 'w') as f:
+    ########## 2024/02/27 ##########
+    # dt_now = datetime.datetime.now()
+    # print(dt_now)
+    # # date = dt_now.strftime('%Y年%m月%d日 %H:%M:%S')
+    # date = dt_now.strftime('%Y%m%d%H%M') # :%S')
+    # print(date)
+    dt_now_jst = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
+    print(dt_now_jst)
+    date = dt_now_jst.strftime('%Y%m%d%H%M')
+
+    # next_action_list = [
+    #     "wakeup",
+    #     "go work",
+    #     "breakfast",
+    #     "coffee",
+    #     "working",
+    #     "lunch",
+    #     "tooth brush",
+    #     "going out",
+    #     "meeting",
+    #     "study(English)",
+    #     "gym",
+    #     "buy dinner",
+    #     "back home",
+    #     "bath",
+    #     "study(ML)",
+    #     "go bed",
+    #     "study",
+    #     "Movie",
+    #     "study(AWS)",
+    #     "study(other)",
+    #     "TV/Youtube",
+    #     "sleep",
+    # ]
+    next_action_list = {
+        "wakeup":0,
+        "go work":1,
+        "breakfast":2,
+        "coffee":3,
+        "working":4,
+        "lunch":5,
+        "tooth brush":6,
+        "going out":7,
+        "meeting":8,
+        "study(English)":9,
+        "gym":10,
+        "buy dinner":11,
+        "back home":12,
+        "bath":13,
+        "study(ML)":14,
+        "go bed":15,
+        "study":16,
+        "Movie":17,
+        "study(AWS)":18,
+        "study(other)":19,
+        "TV/Youtube":20,
+        "sleep":21,
+    }
+    # 入力された行動を辞書から検索してラベルに変換（今回は配列順なので辞書形式ではなくてもいい）
+    try:
+        action = next_action_list[action]
+    except:
+        action = -1 # 入力された行動が辞書内にない場合は-1
+    ########## 2024/02/27 ##########
+
+    # with open('/home/ubuntu/App-Project/action_list_app/input/date_action.csv', 'a') as f: # input/date_action.csv', 'w') as f:
+    with open(filename, 'a') as f: # input/date_action.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerows([[date, action, place]])
         # writer.writerow(['a', 'b', 'c'])
 
-    with open('/Users/ken/Desktop/App-Project/action_list_app/input/date_action.csv') as f: # data/temp/sample_writer_row.csv') as f:
+    # with open('/home/ubuntu/App-Project/action_list_app/input/date_action.csv') as f: # data/temp/sample_writer_row.csv') as f:
+    with open(filename) as f: # input/date_action.csv', 'w') as f:
         print("**********")
         print(f.read())
         print("**********")
