@@ -14,6 +14,8 @@ from markupsafe import Markup
 from werkzeug.utils import secure_filename
 import torch.nn.functional as F
 
+
+# 2024/03/04 これが現在のメイン
 # #ライブラリのインポート
 import math
 # import numpy as np
@@ -39,7 +41,8 @@ from torch.nn import TransformerEncoder, TransformerDecoder, TransformerEncoderL
 # obj3 = "banana"
 # obj4 = "pine"
 
-UPLOAD_FOLDER = "./static/images/"
+# UPLOAD_FOLDER = "./static/images/"
+UPLOAD_FOLDER = "./upload_data/images"
 # ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 
 # labels = ["りんご", "みかん", "バナナ", "パイナップル"]
@@ -375,8 +378,8 @@ def result():
     #     os.makedirs(UPLOAD_FOLDER)
     filename = 'actions_by_load_model.png' # secure_filename(file.filename)  # ファイル名を安全なものに
     filepath = os.path.join(UPLOAD_FOLDER, filename) # '/home/ubuntu/App-Project/action_list_app/actions_by_load_model.png' # 
-    file = request.files["file"]
-    file.save(filepath)
+    # file = request.files["file"]
+    # file.save(filepath)
     
     return render_template("result.html", result=Markup(result), filepath=filepath) # result.htmlにこの結果を表示
 

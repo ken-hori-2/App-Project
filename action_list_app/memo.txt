@@ -25,6 +25,17 @@ pngをweb上に表示する
 
 
 
+2024/03/04
+# Todo
+model_main.py / L319, L739
+"これはテストデータ >> 次回は現在時刻に一番近い時間=t+1となるようにする >> ということは推論結果は未来の時刻にならないといけない（＝学習データは現在時刻以前になるようにする）"
+
+
+2024/03/05
+# Todo
+縦軸（予測対象の行動）のソート：ある時間に対するある行動の確率をそれぞれ算出（学習して分類）して、%で出力→各時間に対して最も確率が高い行動になるようにソート…分類してラベル付けして、その順にソート
+横軸は予測した一時刻を先にcsvに書いておく（行動は空白でOK）:1日8回行動を予測するとして、8×7日=56個予測が必要（1週間予測する場合）…ちなみに現在の入力は17個/日くらい
+
 # history
 
 ubuntu@ip-172-31-88-52:~/App-Project/action_list_app$ history
@@ -380,6 +391,24 @@ ubuntu@ip-172-31-88-52:~/App-Project/action_list_app$ history
   350  sudo pip install torch
   351  sudo pip install torch==2.1.2
   352  history
+
+
+
+
+  14  sudo pip install torch==2.1.2
+  20  sudo pip install torchvision==0.16.2
+  
+  25  cd App-Project/
+  26  git add .
+  27  git commit -m "deploy is complete."
+  29  git config --global user.email ken-hori-2
+  38  git push origin main
+  
+  40  git config --global user.email
+  
+  48  cd App-Project/
+  49  cd action_list_app/
+  50  sudo python model.py
 
 
 # module
