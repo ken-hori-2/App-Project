@@ -420,3 +420,6 @@ sudo pip install matplotlib
 sudo pip install pandas
 sudo pip install scikit-learn
 sudo pip install numpy
+
+# git Token (2024/03/05)
+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
