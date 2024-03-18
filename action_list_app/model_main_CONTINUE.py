@@ -277,7 +277,7 @@ def result():
 
         # パラメータの保存
         params = model.state_dict()
-        torch.save(params, "model.param")
+        torch.save(params, "weights_model.param")
 
     else:
         # パラメータの読み込み
@@ -388,7 +388,14 @@ class AirPassengersDataset(Dataset):
             border2 = border2s[self.set_type]
             data = df_raw[['actions']].values
             ss = StandardScaler()
-            data = ss.fit_transform(data)
+
+            print("20240318 data : ", data)
+
+            # 2024/03/18
+            # srcが小さくなっていた原因
+            # data = ss.fit_transform(data) 正規化してしまっている
+            # print("20240318 data : ", data)
+
             print("border1: {}, boredr2: {}".format(border1, border2))
             self.data = data[border1:border2]
 
@@ -768,6 +775,8 @@ def evaluate(flag, model, data_provider, criterion):
         
         
         "***** add 2024/03/04 *****"
+        # 本来はここに一週間分や一日分の推論結果をお指定するが、今回はダミーデータを推論結果として出力されたとして扱う
+        
         # df にするとエラー
         # df2 = pd.read_csv("./pred_date_actions.csv",sep=",")
         df2 = pd.read_csv("./pred_date_actions_pre.csv",sep=",") # 今はテストデータを読み込む(本来は推論結果を読み込む)
