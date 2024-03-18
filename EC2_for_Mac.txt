@@ -1,0 +1,22 @@
+
+/Users/ken/.sshの中にEC2に接続するための秘密鍵(aws_ken_mac.pem)がある
+
+(base) ken@x86_64-apple-darwin13 ~ % pwd
+/Users/ken
+(base) ken@x86_64-apple-darwin13 ~ % cd .ssh 
+(base) ken@x86_64-apple-darwin13 .ssh % 
+(base) ken@x86_64-apple-darwin13 .ssh % pwd
+/Users/ken/.ssh
+
+(どこのフォルダからでも一発でcd ~/.sshで入れる)
+
+(base) ken@x86_64-apple-darwin13 .ssh % ls
+aws_ken_mac.pem	id_ed25519	id_rsa.pub	known_hosts.old
+config		id_ed25519.pub	known_hosts
+
+
+
+
+EC2にログイン
+
+(base) ken@x86_64-apple-darwin13 .ssh % ssh -i "aws_ken_mac.pem" ubuntu@ec2-3-95-152-194.compute-1.amazonaws.com
