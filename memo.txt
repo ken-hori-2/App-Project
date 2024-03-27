@@ -82,6 +82,19 @@ input_data_from_local_0327.csv の作成
 # Todo
 現在時刻に最も近い未来の時刻の予測する行動(df2:pred_date_actions_pre_0327.csv)を実際の推論結果が格納される様に書き換える
 
+2024/03/28
+# Done
+model_main_CONTINUE_0327.py の更新
+df2:pred_date_actions_pre_0327.csv を実際の推論結果が格納される様に書き換える
+  -> df2:pred_date_actions.csv に推論結果を出力して、それをdf2(現在時刻に基づいた行動の出力)
+
+# Todo
+ひとまず推論モデルの作成完了
+  -> 実際に日々入力したデータをもとに学習、推論する
+    -> Pytorchによる発展ディープラーニングを学ぶ
+  -> EC2だけではないwebサーバーを構築する
+    -> ブラックベルトやハンズオン、資格の勉強をする
+
 
 
 

@@ -728,6 +728,12 @@ def evaluate(flag, model, data_provider, criterion):
         print("next action pred1: ", next_action[0][0][0])
         print("next action pred2: ", next_action[0][1][0])
         print("next action pred3: ", next_action[0][2][0])
+
+        # 2024/03/28 追加
+        print("next action pred4: ", next_action[0][3][0])
+        print("next action pred5: ", next_action[0][4][0])
+        print("next action pred6: ", next_action[0][5][0])
+
         # print("next action pred1: ", int(next_action[0][0]))
         # next_action_list = [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R"]
         print("(t+1)next action is ... ", next_action_list[round(next_action[0][0][0])])
@@ -752,13 +758,38 @@ def evaluate(flag, model, data_provider, criterion):
             next_action_list[round(next_action[0][3][0])],
             next_action_list[round(next_action[0][4][0])],
             next_action_list[round(next_action[0][5][0])],
-            # next_action_list[round(next_action[0][6][0])],
-            # next_action_list[round(next_action[0][7][0])],
-            # next_action_list[round(next_action[0][8][0])],
-            # next_action_list[round(next_action[0][9][0])],
-            # next_action_list[round(next_action[0][10][0])],
+
+            # 2024/03/28 追加
+            next_action_list[round(next_action[0][6][0])],
+            next_action_list[round(next_action[0][7][0])],
+            next_action_list[round(next_action[0][8][0])],
+            next_action_list[round(next_action[0][9][0])],
+            next_action_list[round(next_action[0][10][0])],
+            next_action_list[round(next_action[0][11][0])],
+            next_action_list[round(next_action[0][12][0])],
         ]
+
+        # 2024/03/28 追加 絶対値を取るver.
+        # next = [
+        #     next_action_list[round(abs(next_action[0][0][0]))],
+        #     next_action_list[round(abs(next_action[0][1][0]))],
+        #     next_action_list[round(abs(next_action[0][2][0]))],
+        #     next_action_list[round(abs(next_action[0][3][0]))],
+        #     next_action_list[round(abs(next_action[0][4][0]))],
+        #     next_action_list[round(abs(next_action[0][5][0]))],
+        #     next_action_list[round(abs(next_action[0][6][0]))],
+        #     next_action_list[round(abs(next_action[0][7][0]))],
+        #     next_action_list[round(abs(next_action[0][8][0]))],
+        #     next_action_list[round(abs(next_action[0][9][0]))],
+        #     next_action_list[round(abs(next_action[0][10][0]))],
+        #     next_action_list[round(abs(next_action[0][11][0]))],
+        #     next_action_list[round(abs(next_action[0][12][0]))],
+        # ]
         print("next : ", next)
+
+        print("0328:", round(next_action[0][3][0])) # -1だから21個目が選択される
+
+
         Actions = pd.DataFrame(
             next,
             #  index=[df.shape[0]]
@@ -790,11 +821,16 @@ def evaluate(flag, model, data_provider, criterion):
         # df2 = pd.read_csv("./pred_date_actions.csv",sep=",")
         
         # df2 = pd.read_csv("./pred_date_actions_pre.csv",sep=",") # 今はテストデータを読み込む(本来は推論結果を読み込む)
-        df2 = pd.read_csv("./pred_date_actions_pre_0327.csv",sep=",") # 今はテストデータを読み込む(本来は推論結果を読み込む) # 03/27 追加c
+        df2 = pd.read_csv("./pred_date_actions_pre_0327.csv",sep=",") # 今はテストデータを読み込む(本来は推論結果を読み込む) # 03/27 追加
         # 03/27 ここがエラー ... 次回Todo
         # 03/27 解決済み
         
         "これはテストデータ >> 次回は現在時刻に一番近い時間=t+1となるようにする >> ということは推論結果は未来の時刻にならないといけない（＝学習データは現在時刻以前になるようにする）"
+
+        # 2024/03/28 追加
+        df2 = pd.read_csv("./pred_date_actions.csv",sep=",") # 実際に推論したデータ
+
+        
         
         # # df2 =  pred_dateand_actions
         # df2 = df2.drop(df2.columns[0], axis=1)
@@ -869,6 +905,11 @@ def evaluate(flag, model, data_provider, criterion):
         print(f"{date[0]} t=1, action:{next_action_list[round(next_action[0][0][0])]}")
         print(f"{date[1]} t=2, action:{next_action_list[round(next_action[0][1][0])]}")
         print(f"{date[2]} t=3, action:{next_action_list[round(next_action[0][2][0])]}")
+
+        # 2024/03/28 追加
+        print(f"{date[3]} t=4, action:{next_action_list[round(next_action[0][3][0])]}")
+        print(f"{date[4]} t=5, action:{next_action_list[round(next_action[0][4][0])]}")
+        print(f"{date[5]} t=6, action:{next_action_list[round(next_action[0][5][0])]}")
 
         true_next_action = tgt.detach().numpy()
         print("***** 正解 *****")
