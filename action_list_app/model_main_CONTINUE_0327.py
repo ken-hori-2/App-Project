@@ -17,6 +17,7 @@ import torch.nn.functional as F
 
 
 # 現時点(2024/03/18時点)でのメイン
+# 2024/03/27時点でのメイン(CONTINUEから予測する日付の間隔を調整したコード)
 
 
 
@@ -71,8 +72,8 @@ dim_feedforward = 2048
 num_encoder_layers = 1
 num_decoder_layers = 1
 dropout = 0.01
-src_len = 20 # 36 # 18 # 3年分のデータから
-tgt_len = 7 # 12 # 6 # 1年先を予測する
+src_len = 20     # 36 # 18 # 3年分のデータから
+tgt_len = 14 # 7 # 12 # 6 # 1年先を予測する
 batch_size = 1
 epochs = 100 # 30 # 100 # 5 # 0 # 30 # 5 # 0 # 30+70 # 300
 best_loss = float('Inf')
@@ -88,7 +89,9 @@ multi_data = False # True
 if not multi_data:
     "*** 変更前 ***"
     # df = pd.read_csv("/home/ubuntu/App-Project/action_list_app/input/input_data_from_local.csv",sep=",")
-    df = pd.read_csv("./input/input_data_from_local.csv",sep=",")
+    # df = pd.read_csv("./input/input_data_from_local.csv",sep=",")
+    df = pd.read_csv("./input/input_data_from_local_0327.csv",sep=",")
+
     df.columns = ["date", "actions"]
     from datetime import datetime as dt
     # df.date = df.date.apply(lambda d: dt.strptime(str(d), "%Y/%m/%d"))
@@ -212,8 +215,8 @@ def result():
     "train, val, test すべてのデータが20+10以上必要 >> len < 0になってエラー"
     # src_len = 20
     # tgt_len = 10
-    src_len = 20 # 36 # 18 # 3年分のデータから
-    tgt_len = 7 # 12 # 6 # 1年先を予測する
+    src_len = 20     # 36 # 18 # 3年分のデータから
+    tgt_len = 14 # 7 # 12 # 6 # 1年先を予測する
 
     
     batch_size = 1
@@ -380,8 +383,14 @@ class AirPassengersDataset(Dataset):
             # 1~66
             # border1s = [0, 20, 36] # [train0, val0, test0] # test0~test1=24
             # border2s = [40, 50, 66]          # [train1, val1, test1]
-            border1s = [0, 20, 39] # [train0, val0, test0] # test0~test1=24
-            border2s = [39, 47, 66]          # [train1, val1, test1]
+            
+            
+            # border1s = [0, 20, 39] # [train0, val0, test0] # test0~test1=24
+            # border2s = [39, 47, 66]          # [train1, val1, test1]
+
+            # src=20, tgt=14
+            border1s = [0, 20, 39]
+            border2s = [39, 47 +7, 66 +7]
 
             
             border1 = border1s[self.set_type]
@@ -779,7 +788,12 @@ def evaluate(flag, model, data_provider, criterion):
         
         # df にするとエラー
         # df2 = pd.read_csv("./pred_date_actions.csv",sep=",")
-        df2 = pd.read_csv("./pred_date_actions_pre.csv",sep=",") # 今はテストデータを読み込む(本来は推論結果を読み込む)
+        
+        # df2 = pd.read_csv("./pred_date_actions_pre.csv",sep=",") # 今はテストデータを読み込む(本来は推論結果を読み込む)
+        df2 = pd.read_csv("./pred_date_actions_pre_0327.csv",sep=",") # 今はテストデータを読み込む(本来は推論結果を読み込む) # 03/27 追加c
+        # 03/27 ここがエラー ... 次回Todo
+        # 03/27 解決済み
+        
         "これはテストデータ >> 次回は現在時刻に一番近い時間=t+1となるようにする >> ということは推論結果は未来の時刻にならないといけない（＝学習データは現在時刻以前になるようにする）"
         
         # # df2 =  pred_dateand_actions

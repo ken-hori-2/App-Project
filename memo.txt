@@ -13,6 +13,7 @@ export FLASK_ENV=development
   cd App-Project/
   cd action_list_app/
   sudo python model_main_CONTINUE.py
+  sudo python model_main_CONTINUE_0327.py
 
 
 
@@ -60,11 +61,33 @@ srcが小さい値になってしまっている原因を特定（model_main_CON
 
 # Todo
 今は、「推論結果のうち現在時刻（または、指定した時刻）よりも未来の時刻の推論結果を取り出して提示する」ようにするところを、ダミーデータで推論結果を再現している(df2:pred_date_actions_pre.csv)
--> ダミーデータを推論結果に置き換える
-予測する際に、予測したい日時が、学習の際の日時と感覚が違う場合にうまく推論できない
--> 例：学習時は細かい時系列データ　推論時は、間隔がだいぶあいたデータ（半日に一回推論する程度　など）
--> 今のままでは推論したい時刻の間が空きすぎて、うまく推論できていない状態
--> なので、学習時のデータと推論する日時は日付の感覚をそろえる必要がある（/home/ubuntu/App-Project/action_list_app/upload_data/images/actions_by_load_model.pngを見ればわかる）
+  -> ダミーデータを推論結果に置き換える
+
+予測する際に、予測したい日時が、学習の際の日時と間隔が違う場合にうまく推論できない
+  -> 例：学習時は細かい時系列データ　推論時は、間隔がだいぶあいたデータ（半日に一回推論する程度　など）
+    -> 今のままでは推論したい時刻の間が空きすぎて、うまく推論できていない状態
+      -> なので、学習時のデータと推論する日時は日付の感覚をそろえる必要がある（/home/ubuntu/App-Project/action_list_app/upload_data/images/actions_by_load_model.pngを見ればわかる）
+
+
+2024/03/27
+# Done
+memo.txt の整理
+model_main_CONTINUE_0327.py の作成
+  -> 2024/03/27時点でのメイン(CONTINUEから予測する日付の間隔を調整したコード)
+  -> また、予測対象のデータを7個追加
+
+input_data_from_local_0327.csv の作成
+  -> 予測対象のデータを7個追加
+
+# Todo
+現在時刻に最も近い未来の時刻の予測する行動(df2:pred_date_actions_pre_0327.csv)を実際の推論結果が格納される様に書き換える
+
+
+
+
+
+
+
 
 # history
 
@@ -442,6 +465,8 @@ ubuntu@ip-172-31-88-52:~/App-Project/action_list_app$ history
 
 
 # module
+sudo pip install torch==2.1.2
+sudo pip install torchvision==0.16.2
 sudo apt install python-is-python3
 sudo apt update
 sudo apt install python3-pip
