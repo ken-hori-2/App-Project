@@ -90,7 +90,7 @@ React、DRF、Terraform を勉強する際に使用できるテンプレート
 
 <!-- Treeコマンドを使ってディレクトリ構成を記載 -->
 
-❯ tree -a -I "node_modules|.next|.git|.pytest_cache|static" -L 2
+<!-- ❯ tree -a -I "node_modules|.next|.git|.pytest_cache|static" -L 2
 .
 ├── .devcontainer
 │   └── devcontainer.json
@@ -139,13 +139,13 @@ React、DRF、Terraform を勉強する際に使用できるテンプレート
     ├── network.tf
     └── variables.tf
 
-<p align="right">(<a href="#top">トップへ</a>)</p>
+<p align="right">(<a href="#top">トップへ</a>)</p> -->
 
 ## 開発環境構築
 
 <!-- コンテナの作成方法、パッケージのインストール方法など、開発環境構築に必要な情報を記載 -->
 
-### コンテナの作成と起動
+<!-- ### コンテナの作成と起動
 
 .env ファイルを以下の環境変数例と[環境変数の一覧](#環境変数の一覧)を元に作成
 
@@ -248,4 +248,4 @@ make build
 
 を実行して Docker image を更新してください
 
-<p align="right">(<a href="#top">トップへ</a>)</p>
+<p align="right">(<a href="#top">トップへ</a>)</p> -->
